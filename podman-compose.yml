@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: poc-transaction_postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=R00Tpostgres
+      - POSTGRES_DB=poc-transaction
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  mysql:
+    image: mysql:8
+    container_name: poc-transaction_mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=R00Tmysql
+      - MYSQL_DATABASE=poc-transaction
+    volumes:
+      - mysql:/var/lib/mysql
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: poc-transaction_mssql
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Developer
+      - MSSQL_SA_PASSWORD=R00Tmssql
+    volumes:
+      - mssql:/var/opt/mssql
+
+volumes:
+  postgres:
+    name: poc-transaction_postgres
+  mysql:
+    name: poc-transaction_mysql
+  mssql:
+    name: poc-transaction_mssql
+
+networks:
+  default:
+    name: poc-transaction
